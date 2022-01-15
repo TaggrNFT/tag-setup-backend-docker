@@ -1,0 +1,14 @@
+flask==1.1.2
+pycryptodome==3.9.4
+redis==3.3.11
+asyncio-redis==0.15.1
+aiohttp==3.6.2
+async-timeout==3.0.1
+attrs==19.3.0
+chardet==3.0.4
+idna==2.8
+multidict==4.7.2
+yarl==1.4.2
+ndeflib==0.3.3
+uWSGI==2.0.18
+https://github.com/tlsfuzzer/python-ecdsa/archive/8dea392e9cc43d2f909a5283234679b921f0db94.zip
