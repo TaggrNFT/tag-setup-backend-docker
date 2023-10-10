@@ -98,4 +98,21 @@ Create Continuous Deployment for Container:
     - Clear the "Service account email" field in order to use the default Cloud Build Service Account
     - Click "Save"
 
+  If the Service is not being updated by the Trigger:
+    - Ensure the Service has the correct "Label" for the Trigger
+      - Find the Trigger ID (not name)
+        - Go to Cloud Build -> History
+        - Find the last Build that succeeded from the Trigger
+        - Click on the Build ID link
+        - Open the "Execution Details" tab
+        - Find the Trigger ID and copy
+      - Go to Cloud Run
+        - Check the checkbox beside the Service
+        - on the right side of the screen a panel will open for "permissions" and "labels"
+        - Click the "labels" tab
+          - edit the "gcb-trigger-id" and paste the Trigger ID from above
+          - edit the "gcb-trigger-region" to be "us-central1"
+          - click "Save"
+      The service should now auto-update to the correct container image
+
   - Run the Trigger to Test
