@@ -17,6 +17,7 @@ cp config.dist.py config.py
 | ------------- | ------------------- |
 | `ADMIN_AUTH_CODE` | Password that needs to be entered in the Tag Setup PC App. |
 | `URL` | URL that has to be encoded on the tag. Markers containing `@` signs must be retained unmodified. |
+| `UPDATE_URL` | API URL to be called after a Tag is Encoded and has a UID. `uid` and `machineId` will be sent as POST data.
 | `MASTER_KEY` | Master keys for derivation. Should be set to random 16 byte values (hex encoded). |
 | `TAG_HASH_KEY` | Key for derivation of "tag hashes". Should be set to random 16 byte values (hex encoded). |
 | `TAG_SECRET_KEY` | Key for derivation of "tag secrets". Should be set to random 16 byte values (hex encoded). |
@@ -54,6 +55,10 @@ sudo docker run \
     -e NFC_TAG_SECRET_KEY=c952c99d41713968dee6ca1c2a63a412 \
     -e NFC_PBKDF_ROUNDS=1000 \
     -e NFC_URL=http://10.0.0.44:5000/demo \
+    -e UPDATE_URL=http://127.0.0.1/api/newtag \
     -p 8080:8080 \
     -it nfc-setup
 ```
+
+
+## Google Cloud Usage

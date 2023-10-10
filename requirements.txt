@@ -11,4 +11,5 @@ multidict==4.7.2
 yarl==1.4.2
 ndeflib==0.3.3
 uWSGI==2.0.18
+requests==2.31.0
 https://github.com/tlsfuzzer/python-ecdsa/archive/8dea392e9cc43d2f909a5283234679b921f0db94.zip

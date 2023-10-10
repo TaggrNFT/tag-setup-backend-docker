@@ -5,6 +5,7 @@ import json
 import struct
 import traceback
 
+import requests
 import aiohttp
 from Crypto.Util import strxor
 
@@ -12,7 +13,7 @@ from aiohttp import web
 from asyncio import Queue
 
 from ntag.build_sun import create_ndef
-from config import URL, ADMIN_AUTH_CODE
+from config import URL, UPDATE_URL, ADMIN_AUTH_CODE
 from ntag.ev2 import AuthenticateEV2, CommMode, CryptoComm
 from derive import derive_tag_key, calculate_tag_hash, calculate_tag_secret, wrap_uid
 
@@ -61,6 +62,14 @@ async def auth_change_key(vc: VirtualCard, comm: CryptoComm, key_value: bytes, k
         payload = strxor.strxor(old_key, new_key) + b"\x01" + struct.pack("<I", mf_crc32(new_key))
         resp = await vc.transceive(comm.wrap_cmd(0xC4, CommMode.FULL, bytes([key_no]), payload))
         require(comm.unwrap_res(resp, CommMode.PLAIN)[0] == b"\x91\x00")
+
+
+async def send_tag_id(uid: bytes, machineId: bytes):
+    print(f'Updating Server {UPDATE_URL} with UID={uid} and MachineID={machineId}')
+    payload = {'uid': str(uid), 'machineId': str(machineId)}
+    r = requests.post(UPDATE_URL, data=payload)
+    print(r.text)
+    print('Server Updated!')
 
 
 async def init_isodep_tech(vc: VirtualCard) -> bytes:
@@ -180,6 +189,7 @@ async def init_isodep_tech(vc: VirtualCard) -> bytes:
         resp = await vc.transceive(comm.wrap_cmd(0x5C, CommMode.FULL, b"\x07", b"\x01\x00"))
         require(comm.unwrap_res(resp, CommMode.PLAIN)[0] == b"\x91\x00")
 
+    await send_tag_id(real_uid, vc.machineId)
     return real_uid
 
 
@@ -218,7 +228,8 @@ async def websocket_handler(request):
     await ws.prepare(request)
 
     queue = Queue()
-    vc = VirtualCard(ws, queue)
+    machineId = request.match_info['machineId']
+    vc = VirtualCard(ws, queue, machineId)
     packet_processor = asyncio.ensure_future(packet_consumer(vc))
 
     async for msg in ws:
@@ -246,5 +257,5 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     app = web.Application()
-    app.add_routes([web.get('/setup', websocket_handler)])
+    app.add_routes([web.get('/setup/{machineId}', websocket_handler)])
     web.run_app(app, host=args.host, port=args.port)

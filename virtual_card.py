@@ -20,10 +20,11 @@ class UIDMutex:
 
 
 class VirtualCard:
-    def __init__(self, ws, queue):
+    def __init__(self, ws, queue, machineId):
         self.ws = ws
         self.queue = queue
         self.uid = None
+        self.machineId = machineId
 
     async def recv(self):
         packet = await self.queue.get()

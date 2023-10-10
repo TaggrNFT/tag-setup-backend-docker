@@ -13,6 +13,8 @@ URL = os.environ['NFC_URL'] + \
       '@@@ENCFILEDATA@@@@@@@@@@@@@@@@@@' \
       '@@@CMAC@@@@@@@@@'
 
+UPDATE_URL = os.environ['UPDATE_URL']
+
 ADMIN_AUTH_CODE = os.environ['NFC_ADMIN_AUTH_CODE']
 
 MASTER_KEY = [

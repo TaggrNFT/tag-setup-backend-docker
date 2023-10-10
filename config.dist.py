@@ -12,6 +12,8 @@ URL = 'http://10.0.0.44:5000/demo' \
       '@@@ENCFILEDATA@@@@@@@@@@@@@@@@@@' \
       '@@@CMAC@@@@@@@@@'
 
+UPDATE_URL = 'http://127.0.0.1/api/newtag/'
+
 MASTER_KEY = [
     binascii.unhexlify("d4787e885637c02c1333518846b2629e"),
     binascii.unhexlify("7a5037005d55e31ed9c99c45a2614f48"),
