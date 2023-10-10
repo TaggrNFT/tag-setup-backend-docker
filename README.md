@@ -62,3 +62,40 @@ sudo docker run \
 
 
 ## Google Cloud Usage
+
+Create Continuous Deployment for Container:
+  - https://cloud.google.com/build/docs/securing-builds/configure-access-for-cloud-build-service-account
+  - https://cloud.google.com/build/docs/automating-builds/create-manage-triggers
+  - https://cloud.google.com/run/docs/quickstarts/deploy-continuously
+
+  - Navigate to Google Cloud Run
+    - https://console.cloud.google.com/run?authuser=0&hl=en&project=taggr-admin-staging
+
+  - Create Service
+    - Select "Continuously deploy new revisions from a source repository"
+      - Click "Set up with cloud build"
+        - Connect to Github
+        - Select Repository "tag-setup-backend-docker"
+        - Select a Branch "main" or "staging"
+        - Build Type: Dockerfile
+        - Source location: /Dockerfile
+      - Click "Save"
+    - Service Name: "[project-id]-tag-writer-ci"
+    - Region: us-central1
+    - Select "Allow unauthenticated invocations"
+    - Open the "Container, Networking, Security" section
+      - Under "Container" tab:
+        - Add Env Vars for App
+    - Click "Create"
+
+    At this point the build will likely fail, if so:
+    - Click "Edit Continuous Deployment" button at the top
+    - Set Region to "us-central1"
+    - Set Configuration Type to "Dockerfile"
+    - Set the Dockerfile name input box explicitly to "Dockerfile"
+    - Edit the Image Name to be less than 100 chars (use $SHORT_SHA at the end)
+    - Uncheck the option "Send build logs to Github"
+    - Clear the "Service account email" field in order to use the default Cloud Build Service Account
+    - Click "Save"
+
+  - Run the Trigger to Test
