@@ -80,7 +80,7 @@ Create Continuous Deployment for Container:
         - Build Type: Dockerfile
         - Source location: /Dockerfile
       - Click "Save"
-    - Service Name: "[project-id]-tag-writer-ci"
+    - Service Name: "[client-id]-tag-writer-ci"
     - Region: us-central1
     - Select "Allow unauthenticated invocations"
     - Open the "Container, Networking, Security" section
