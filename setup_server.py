@@ -67,8 +67,8 @@ async def auth_change_key(vc: VirtualCard, comm: CryptoComm, key_value: bytes, k
 async def send_tag_id(uid: bytes, machineId: bytes):
     uid1 = int.from_bytes(uid, byteorder='little')
     print(f'uid1 = {uid1}')
-    # uid2 = int.from_bytes(uid, byteorder='big')
-    # print(f'uid2 = {uid2}')
+    uid2 = uid.hex()
+    print(f'uid2 = {uid2}')
     # uid3 = int.from_bytes(uid, byteorder=sys.byteorder)
     # print(f'uid3 = {uid3}')
     print(f'Updating Server {UPDATE_URL} with MachineID={machineId} and Tag UID={str(uid)}')
