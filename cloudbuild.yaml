@@ -11,7 +11,7 @@
     args:
     - 'run'
     - 'deploy'
-    - 'tag-setup-backend-docker'
+    - 'taggr-tag-writer-ci'
     - '--image'
     - 'gcr.io/taggr-admin-staging/tag-setup-backend-docker:$SHORT_SHA'
     - '--region'
