@@ -69,6 +69,7 @@ async def send_tag_id(uid: bytes, machineId: bytes):
     print(f'Updating Server {UPDATE_URL} with MachineID={machineId} and Tag UID={tagId}')
     payload = {'uid': tagId, 'machineId': str(machineId)}
     r = requests.post(UPDATE_URL, data=payload)
+    print(r.json())
     print('Server Updated!')
 
 
