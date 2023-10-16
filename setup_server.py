@@ -70,7 +70,6 @@ async def send_tag_id(uid: bytes, machineId: bytes):
     payload = {'uid': tagId, 'machineId': str(machineId)}
     r = requests.post(UPDATE_URL, data=payload)
     print(r.json())
-    print('Server Updated!')
 
 
 async def init_isodep_tech(vc: VirtualCard) -> bytes:
