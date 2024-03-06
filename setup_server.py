@@ -65,11 +65,11 @@ async def auth_change_key(vc: VirtualCard, comm: CryptoComm, key_value: bytes, k
 
 
 async def send_tag_id(uid: bytes, machineId: bytes):
-    print(f'Updating Server {UPDATE_URL} with UID={uid} and MachineID={machineId}')
-    payload = {'uid': str(uid), 'machineId': str(machineId)}
+    tagId = uid.hex()
+    print(f'Updating Server {UPDATE_URL} with MachineID={machineId} and Tag UID={tagId}')
+    payload = {'uid': tagId, 'machineId': str(machineId)}
     r = requests.post(UPDATE_URL, data=payload)
-    print(r.text)
-    print('Server Updated!')
+    print(r.json())
 
 
 async def init_isodep_tech(vc: VirtualCard) -> bytes:
